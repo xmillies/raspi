@@ -1,4 +1,4 @@
-import copy
+import copy, random
 
 matrix = [[0,0,0,0,0,0,0,0],
           [0,0,0,0,0,0,0,0],
@@ -20,6 +20,10 @@ each cell next generation:
 
 """
 
+def show_matrix(mat):
+	for row in mat:
+		print " ".join(str(x) for x in row)
+
 def neighborhood(x,y, matrix):
     nbs = 0
     for i in range(y-1,y+1):
@@ -27,7 +31,7 @@ def neighborhood(x,y, matrix):
             if matrix[i][j]:
                 nbs+=1
     if matrix[x][y]:
-        ngs-=1
+        nbs-=1
     return nbs
 
 def makenext(height, width, init=1):
@@ -45,9 +49,18 @@ def nextgen(matrix):
         for y in range(len(matrix[0])):
             nbs = neighborhood(x,y,matrix)
             if (nbs < 2) or (nbs > 3):
-                nmat[x][y] = 0
-            
+                plusgen[x][y] = 0
+    return plusgen
 
 if __name__ == "__main__":
-    print makenext(8,8)
-	
+    start = makenext(8,8, init=0)
+    for i in range(15):
+    	x = random.randint(0,7)
+    	y = random.randint(0,7)
+    	start[x][y] = 1
+
+    show_matrix(start)
+    show_matrix(nextgen(start))
+
+
+		
