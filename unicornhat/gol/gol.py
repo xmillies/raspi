@@ -52,6 +52,12 @@ def nextgen(matrix):
                 plusgen[x][y] = 0
     return plusgen
 
+def makegens(startgen, gens = 10):
+	genslist = [startgen]
+	for i in range(gens):
+		genslist.append(nextgen(genslist[-1]))
+	return genslist
+
 if __name__ == "__main__":
     start = makenext(8,8, init=0)
     for i in range(15):
@@ -60,7 +66,11 @@ if __name__ == "__main__":
     	start[x][y] = 1
 
     show_matrix(start)
-    show_matrix(nextgen(start))
+    #show_matrix(nextgen(start))
 
+    generations = makegens(start, gens=10)
+    for mat in generations:
+    	print "#"
+    	show_matrix(mat)
 
 		
